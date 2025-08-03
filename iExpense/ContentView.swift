@@ -37,6 +37,8 @@ struct ContentView: View {
     
     @State private var showingAddExpense = false
     
+    @State private var title = "iExpense"
+    
     var personalItems: [ExpenseItem] {
         expenses.items.filter { $0.type == .personal }
     }
@@ -67,13 +69,19 @@ struct ContentView: View {
                         removeItems(at: offsets, in: personalItems)
                     }
                 }
+                
+                NavigationLink("Add Expense", destination: AddView(expenses: expenses), isActive: $showingAddExpense)
+                    .hidden()
+                
             }
-            .navigationTitle("iExpense")
+            .navigationTitle($title)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 Button("Add Expense", systemImage: "plus") {
                     showingAddExpense = true
                 }
             }
+            .navigationBarBackButtonHidden()
             .sheet(isPresented: $showingAddExpense) {
                 AddView(expenses: expenses)
             }
