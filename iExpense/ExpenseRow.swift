@@ -5,6 +5,7 @@
 //  Created by Aleksandr Zhazhoyan on 19.07.2025.
 //
 
+import SwiftData
 import SwiftUI
 
 struct ExpenseRow: View {

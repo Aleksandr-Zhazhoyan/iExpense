@@ -6,16 +6,24 @@
 //
 
 import Foundation
-
+import SwiftData
 
 enum ExpenseType: String, CaseIterable, Codable {
     case business = "Business"
     case personal = "Personal"
 }
 
-struct ExpenseItem: Identifiable, Codable {
+@Model
+class ExpenseItem {
     var id = UUID()
     var name: String
-    let type: ExpenseType
-    let amount: Double
+    var type: ExpenseType
+    var amount: Double
+    
+    init(id: UUID = UUID(), name: String, type: ExpenseType, amount: Double) {
+        self.id = id
+        self.name = name
+        self.type = type
+        self.amount = amount
+    }
 }

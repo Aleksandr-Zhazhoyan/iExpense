@@ -5,19 +5,16 @@
 //  Created by Aleksandr Zhazhoyan on 19.07.2025.
 //
 
+import SwiftData
 import SwiftUI
 
 struct AddView: View {
-    
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
     
     @State private var name = ""
     @State private var type: ExpenseType = .personal
     @State private var amount = 0.0
-    
-    var expenses: Expenses
-    
-    let types = ExpenseType.allCases
     
     var body: some View {
         NavigationStack {
@@ -34,7 +31,6 @@ struct AddView: View {
                     .keyboardType(.decimalPad)
             }
             .navigationTitle("Add new expense")
-            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
@@ -45,7 +41,7 @@ struct AddView: View {
             .toolbar {
                 Button("Save") {
                     let item = ExpenseItem(name: name, type: type, amount: amount)
-                    expenses.items.append(item)
+                    modelContext.insert(item)
                     dismiss()
                 }
             }
@@ -54,5 +50,5 @@ struct AddView: View {
 }
 
 #Preview {
-    AddView(expenses: Expenses())
+    AddView()
 }
